@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ski</groupId>
-    <artifactId>ski-resort</artifactId>
+    <artifactId>fastStart4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ski-resort</name>
     <description>Ski resort manager</description>

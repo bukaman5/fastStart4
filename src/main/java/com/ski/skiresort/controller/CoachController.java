@@ -4,6 +4,7 @@ package com.ski.skiresort.controller;
 import com.ski.skiresort.domain.entity.Coach;
 import com.ski.skiresort.service.CoachService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class CoachController {
-    private CoachService coachService;
+
+    private final CoachService coachService;
 
     @Autowired
     public CoachController(CoachService theCoachService) {
@@ -46,15 +48,10 @@ public class CoachController {
     }
 
     @DeleteMapping("coaches/{coachId}")
-    public String deleteCoach(@PathVariable long coachId) {
-        Coach tempCoach = coachService.findById(coachId);
-        if (tempCoach == null) {
-            throw new RuntimeException("No coach with this id:" + coachId);
-        }
-        coachService.deleteById(coachId);
-        return "Done, deleted visitor:" + tempCoach;
+    public HttpStatus deleteCoach(@PathVariable long coachId) {
+        this.coachService.deleteById(coachId);
+        return HttpStatus.OK;
     }
-
 
 
 }

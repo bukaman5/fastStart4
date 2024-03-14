@@ -4,6 +4,7 @@ import com.ski.skiresort.dao.CoachRepository;
 
 import com.ski.skiresort.domain.entity.Coach;
 
+import com.ski.skiresort.exeption.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CoachServiceImpl implements CoachService {
-    private final CoachRepository coachRepository;
 
+    private final CoachRepository coachRepository;
 
 
     @Override
@@ -30,18 +31,24 @@ public class CoachServiceImpl implements CoachService {
 
     @Override
     public void deleteById(long theId) {
-        coachRepository.deleteById(theId);
+
+        Optional<Coach> result = this.coachRepository.findById(theId);
+        if (result.isPresent()) {
+            this.coachRepository.deleteById(result.get().getId());
+        } else {
+            throw new ResourceNotFoundException("Didnt find coach with id" + theId);
+        }
+
+
     }
 
     @Override
     public Coach findById(long theId) {
-        Optional<Coach> result = coachRepository.findById(theId);
-        Coach theCoach;
+        Optional<Coach> result = this.coachRepository.findById(theId);
         if (result.isPresent()) {
-            theCoach = result.get();
+            return result.get();
         } else {
-            throw new RuntimeException("Didnt find coach with id" + theId);
+            throw new ResourceNotFoundException("Didnt find coach with id" + theId);
         }
-        return theCoach;
     }
 }

@@ -20,6 +20,4 @@
             <column name="photo" type="varchar(255)"/>
         </createTable>
     </changeSet>
-
-
 </databaseChangeLog>
