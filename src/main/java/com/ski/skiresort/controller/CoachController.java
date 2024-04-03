@@ -5,6 +5,7 @@ import com.ski.skiresort.domain.entity.Coach;
 import com.ski.skiresort.service.CoachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ public class CoachController {
     }
 
     @PostMapping("/coaches")
+    @Transactional
     public Coach addCoach(@RequestBody Coach theCoach) {
         return coachService.save(theCoach);
     }
@@ -43,11 +45,13 @@ public class CoachController {
     }
 
     @PutMapping("/coaches")
+    @Transactional
     public Coach updateCoach(@RequestBody Coach theCoach) {
         return coachService.save(theCoach);
     }
 
     @DeleteMapping("coaches/{coachId}")
+    @Transactional
     public HttpStatus deleteCoach(@PathVariable long coachId) {
         this.coachService.deleteById(coachId);
         return HttpStatus.OK;
