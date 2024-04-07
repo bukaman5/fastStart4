@@ -7,6 +7,7 @@ import com.ski.skiresort.domain.entity.Coach;
 import com.ski.skiresort.exeption.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -25,11 +26,13 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
+    @Transactional
     public Coach save(Coach theCoach) {
         return coachRepository.save(theCoach);
     }
 
     @Override
+    @Transactional
     public void deleteById(long theId) {
 
         Optional<Coach> result = this.coachRepository.findById(theId);
